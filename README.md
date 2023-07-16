@@ -13,7 +13,7 @@
 # 기능별 설명
 ## 회원가입 기능
 - 사용자는 자체 회원가입을 할 수 있다.
-- 이메일, 전화번호, 비밀번호를 입력해야하며 전체 약관 동의를 해야 한다. 이 때, 아이디와 이메일은 UNIQUE값이다.
+- 이름, 이메일, 전화번호, 아이디, 비밀번호를 입력해야하며 전체 약관 동의를 해야 한다. 이 때, 아이디와 이메일은 UNIQUE값이다.
 - 회원가입 진행 시 이메일 인증을 받아야 한다.
 
 ## 로그인 기능
@@ -26,7 +26,7 @@
 ### 계좌 생성
 - 사용자는 로그인 후 계좌를 생성할 수 있다.
 - 계좌는 약관을 동의하고 통장 비밀번호 설정(비밀번호 확인까지 두 번 진행)과 사용용도를 설정하면 생성할 수 있다.
-- 계좌 신청 성공 시, 계좌는 3333-xx-xxxxxxx (13자리)로 고정이며, 오름차순으로 자동 생성된다. (레퍼런스 : 카카오뱅크)
+- 계좌 생성 성공 시, 계좌는 3333-xx-xxxxxxx (13자리)로 고정이며, 오름차순으로 자동 생성된다. (레퍼런스 : 카카오뱅크)
 - 계좌 번호는 UNIQUE 해야 한다.
 - 한 사람당 만들 수 있는 계좌의 수는 5개로 제한한다.
 
@@ -69,7 +69,7 @@
 - 송금에 성공할 경우 변동된 잔액을 화면에서 확인할 수 있다.
 
 ---
-## 관리자
+## 관리자 (추가사항)
 - 페이지를 관리하는 사용자가 따로 존재한다. 일명 관리자라고 칭한다.
 - 관리자는 전체 고객(회원가입자)수를 확인할 수 있다.
 - 관리자는 고객의 정보를 확인할 수 있다.
@@ -77,12 +77,22 @@
 
 ---
 # ERD
+![img_3.png](img_3.png)
 
+member 테이블과 account 테이블은 (1:N) 관계를, account 테이블과 member 테이블은 (N:1) 관계이다. 
+account 테이블과 record 테이블은 (1:1) 관계로 ERD를 작성하였다.
+
+사용자 아이디(pk)를 통해 계좌를 생성 및 접근할 수 있고 각 계좌마다 입출금, 송금 기록을 저장할 record 테이블에 (1:1)로 연결되어 있다.
+이 때, 계좌 번호를 통해 기록에 접근하도록 한다.
+
+(<U>송금시 본인 계좌 잔액과 상대방 계좌 잔액이 바뀌고 상대반 계좌에도 기록이 남아야 하는데 현재 이 테이블로는 불가능할 것 같습니다.
+송금 작업시 상대방 계좌번호를 이용해 account 테이블로 접근하고 외래키를 이용해 record 테이블에 접근해서 잔액을 변경할 수 있을 것 같기도 합니다.</U>)
+ 
 ---
 # 사용기술 스택
 <img src="https://img.shields.io/badge/Spring-6DB33F?style=for-the-badge&logo=Spring&logoColor=green"> <img src="https://img.shields.io/badge/Spring Boot-6DB33F?style=for-the-badge&logo=Spring Boot&logoColor=yellow"> <img src="https://img.shields.io/badge/Spring Security-6DB33F?style=for-the-badge&logo=Spring&logoColor=green">
-- Spring
-- Spring Boot
-- Spring Security
+
+- Java
 - Spring DATA JPA
-- Spring Batch (트랜잭션 처리? 사용고려해보기)
+- Git
+
