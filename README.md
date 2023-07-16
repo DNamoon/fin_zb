@@ -77,7 +77,7 @@
 
 ---
 # ERD
-![img_3.png](img_3.png)
+![img_3.png](readme/erd.png)
 
 member 테이블과 account 테이블은 (1:N) 관계를, account 테이블과 member 테이블은 (N:1) 관계이다. 
 account 테이블과 record 테이블은 (1:1) 관계로 ERD를 작성하였다.
